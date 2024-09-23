@@ -9,7 +9,7 @@ import { BDConfig } from "./BD/bd.js";
 
 const app = express();
 app.use(express.json());
-const port = 3000;
+const port = 5432;
 
 app.use("/api/event", EventController);
 app.use("/api/province", ProvinceController);
