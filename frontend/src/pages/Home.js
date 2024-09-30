@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
+import EventList from '@/app/components/EventList'; // Asegúrate de que la ruta sea correcta
+
 
 const Home = () => {
   const [username, setUsername] = useState('');
@@ -28,6 +30,7 @@ const Home = () => {
       <Navbar />
       <h1>Bienvenido a la Home</h1>
       {username && <h2>Hola, {username}!</h2>}
+      <EventList />
       <Footer />
     </div>
   );

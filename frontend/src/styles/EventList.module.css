@@ -1,0 +1,19 @@
+.container {
+    padding: 20px;
+  }
+  
+  .eventGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre tarjetas */
+  }
+  
+  .eventCard {
+    flex: 1 1 calc(33% - 20px); /* Tres columnas */
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
