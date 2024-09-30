@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
+import Navbar from '@/app/components/Navbar';
+import Footer from '@/app/components/Footer';
 
 const Home = () => {
   const [username, setUsername] = useState('');
@@ -8,21 +10,25 @@ const Home = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Verificar si estamos en el cliente
       const token = localStorage.getItem('token');
+      const storedUsername = localStorage.getItem('username');
+
       if (!token) {
-        router.push('/login');  // Redirigir al login si no hay token
+        router.push('/login');
       } else {
-        const { username } = JSON.parse(atob(token.split('.')[1]));  // Decodificar token
-        setUsername(username);
+        if (storedUsername) {
+          setUsername(storedUsername);
+        }
       }
     }
-  }, []);
+  }, [router]);
 
   return (
     <div className={styles.container}>
+      <Navbar />
       <h1>Bienvenido a la Home</h1>
       {username && <h2>Hola, {username}!</h2>}
+      <Footer />
     </div>
   );
 };

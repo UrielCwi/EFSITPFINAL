@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import styles from '../styles/Register.module.css';  // Importar el CSS separado
+import Footer from '@/app/components/Footer';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');

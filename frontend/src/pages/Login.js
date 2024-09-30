@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import styles from '../styles/Login.module.css';
+import Footer from '@/app/components/Footer';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -15,9 +16,15 @@ const Login = () => {
         username: username,
         password: password,
       });
+
       if (typeof window !== 'undefined') {
-        localStorage.setItem('token', response.data.token);
+        const token = response.data.token;
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const user = decodedToken.username;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', user);
       }
+      
       router.push('/home');
     } catch (error) {
       console.error('Login failed:', error);
@@ -51,6 +58,7 @@ const Login = () => {
       <p className={styles.registerPrompt}>
         ¿No tienes una cuenta? <span className={styles.registerLink} onClick={handleRegisterRedirect}>Regístrate aquí</span>
       </p>
+      <Footer />
     </div>
   );
 };
