@@ -17,15 +17,12 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('username'); // También puedes limpiar el username
+    localStorage.removeItem('username');
     router.push('/login');
   };
 
   const handleRedirectToHome = () => {
-    // Refresca la página para ir a home
     router.push('/home');
-    // Esto se puede ajustar si se quiere hacer un reload completo
-    // window.location.reload(); // Descomenta esto si necesitas un reload completo
   };
 
   return (
@@ -37,7 +34,7 @@ const Navbar = () => {
         </span>
       </div>
       <div className={styles.userSection}>
-        <span>{username || 'Invitado'}</span> {/* Muestra 'Invitado' si no hay username */}
+        <span>{username || 'Invitado'}</span>
         <button
           onClick={handleLogout}
           style={{

@@ -5,11 +5,11 @@
   .eventGrid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Espacio entre tarjetas */
+    gap: 20px;
   }
   
   .eventCard {
-    flex: 1 1 calc(33% - 20px); /* Tres columnas */
+    flex: 1 1 calc(33% - 20px);
     background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;

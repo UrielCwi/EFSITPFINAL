@@ -13,14 +13,14 @@
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 400px; /* Limitar el ancho máximo para dispositivos más grandes */
+  max-width: 400px;
 }
 
 .title {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
-  color: #0070f3; /* Color del título */
+  color: #0070f3;
 }
 
 .input {
@@ -29,11 +29,11 @@
   margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  transition: border-color 0.3s; /* Agregar una transición suave */
+  transition: border-color 0.3s;
 }
 
 .input:focus {
-  border-color: #0070f3; /* Color de borde al enfocar */
+  border-color: #0070f3;
 }
 
 .button {
@@ -44,25 +44,25 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s; /* Agregar una transición suave */
+  transition: background-color 0.3s;
 }
 
 .button:hover {
-  background-color: #005bb5; /* Color del botón al pasar el mouse */
+  background-color: #005bb5;
 }
 
 .loginPrompt {
   margin-top: 15px;
-  text-align: center; /* Centrar el texto del mensaje */
-  color: #555; /* Color del texto */
+  text-align: center;
+  color: #555;
 }
 
 .loginLink {
-  color: #0070f3; /* Color del enlace */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  text-decoration: underline; /* Subrayar el enlace */
+  color: #0070f3;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .loginLink:hover {
-  color: #005bb5; /* Color del enlace al pasar el mouse */
+  color: #005bb5;
 }

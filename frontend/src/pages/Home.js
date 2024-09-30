@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
-import EventList from '@/app/components/EventList'; // Asegúrate de que la ruta sea correcta
-
+import EventList from '@/app/components/EventList';
 
 const Home = () => {
   const [username, setUsername] = useState('');

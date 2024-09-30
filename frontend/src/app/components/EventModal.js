@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/EventModal.module.css'; // Asegúrate de que la ruta sea correcta
+import styles from '../../styles/EventModal.module.css';
 
 const EventModal = ({ event, onClose }) => {
   return (

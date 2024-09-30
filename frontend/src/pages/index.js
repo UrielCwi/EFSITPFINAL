@@ -7,13 +7,13 @@ const IndexPage = () => {
 
   useEffect(() => {
     if (token) {
-      router.push('/home');  // Redirige a /home si existe el token
+      router.push('/home');
     } else {
-      router.push('/login'); // Redirige a /login si no hay token
+      router.push('/login');
     }
   }, [token, router]);
 
-  return null; // No mostrar nada en la página, solo hacer la redirección
+  return null;
 };
 
 export default IndexPage;

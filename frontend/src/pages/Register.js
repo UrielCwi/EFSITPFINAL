@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import styles from '../styles/Register.module.css';  // Importar el CSS separado
+import styles from '../styles/Register.module.css';
 import Footer from '@/app/components/Footer';
 
 const Register = () => {
@@ -69,6 +69,7 @@ const Register = () => {
       <p className={styles.loginPrompt}>
         ¿Ya tienes una cuenta? <span className={styles.loginLink} onClick={handleLoginRedirect}>Inicia sesión aquí</span>
       </p>
+      <Footer />
     </div>
   );
 };
