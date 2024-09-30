@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import styles from '../styles/Register.css';  // Importar el CSS separado
+import styles from '../styles/Register.module.css';  // Importar el CSS separado
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -28,6 +28,10 @@ const Register = () => {
     } catch (error) {
       console.error('Error en el registro', error);
     }
+  };
+
+  const handleLoginRedirect = () => {
+    router.push('/login');
   };
 
   return (
@@ -64,6 +68,9 @@ const Register = () => {
         />
         <button type="submit" className={styles.button}>Registrar</button>
       </form>
+      <p className={styles.loginPrompt}>
+        ¿Ya tienes una cuenta? <span className={styles.loginLink} onClick={handleLoginRedirect}>Inicia sesión aquí</span>
+      </p>
     </div>
   );
 };

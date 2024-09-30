@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Navbar from './components/Navbar';
+import Home from './pages/home.js';
+import Login from './pages/login.js';
+import Navbar from './components/Navbar.js';
+import IndexPage from './pages/index.js';
 
 const App = () => {
   const token = localStorage.getItem('token');
-
   return (
     <Router>
-      {token && <Navbar />}
+      {token && <Navbar />} 
       <Routes>
-        <Route path="/home" element={token ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/login" element={!token ? <Login /> : <Navigate to="/home" />} />
-        <Route path="/" element={<Navigate to={token ? "/home" : "/login"} />} />
+        <Route path="/Home" element={token ? <Home /> : <Navigate to="/Login" />} />
+        <Route path="/Login" element={!token ? <Login /> : <Navigate to="/Home" />} />
+        <Route path="/" element={<IndexPage />} />
       </Routes>
     </Router>
   );

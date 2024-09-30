@@ -1,43 +1,68 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f7f7f7;
-  }
-  
-  .form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-  }
-  
-  .button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .button:hover {
-    background-color: #005bb5;
-  }
-  
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos estén en columna */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+.form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  width: 100%; /* Asegura que el formulario ocupe el ancho máximo */
+  max-width: 400px; /* Limitar el ancho máximo para dispositivos más grandes */
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #0070f3; /* Color del título */
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s; /* Agregar una transición suave */
+}
+
+.input:focus {
+  border-color: #0070f3; /* Color de borde al enfocar */
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Agregar una transición suave */
+}
+
+.button:hover {
+  background-color: #005bb5; /* Color del botón al pasar el mouse */
+}
+
+.registerPrompt {
+  margin-top: 15px;
+  text-align: center; /* Centrar el texto del mensaje */
+  color: #555; /* Color del texto */
+}
+
+.registerLink {
+  color: #0070f3; /* Color del enlace */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  text-decoration: underline; /* Subrayar el enlace */
+}
+
+.registerLink:hover {
+  color: #005bb5; /* Color del enlace al pasar el mouse */
+}
