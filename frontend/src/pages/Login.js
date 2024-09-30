@@ -11,9 +11,9 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5432/api/user/login', {
-        username,
-        password,
+      const response = await axios.post('http://localhost:5000/api/user/login', {
+        username: username,
+        password: password,
       });
       if (typeof window !== 'undefined') {
         localStorage.setItem('token', response.data.token);

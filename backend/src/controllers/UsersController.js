@@ -5,7 +5,7 @@ const router = express.Router();
 const userService = new UserService();
 
 router.post("/login", async (req, res) => {
-    const { username, password } = req.query;
+    const { username, password } = req.body;
     const verif = verificacionLogin(username);
     if (verif != true) {
         return res.status(400).send({
@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-    const { first_name, last_name, username, password } = req.query;
+    const { first_name, last_name, username, password } = req.body;
     const checkIn = verificadorDeRegistro(first_name, last_name, username, password);
     if(checkIn === true){
         const id = await userService.crearUsuario(first_name, last_name, username, password)

@@ -13,17 +13,14 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5432/api/user/register/', {
+      const response = await axios.post('http://localhost:5000/api/user/register/', {
         first_name: firstName,
         last_name: lastName,
-        username,
-        password,
+        username: username,
+        password: password,
       });
-
-      const token = response.data.token; // El token incluye ID y username
+      const token = response.data.token;
       localStorage.setItem('token', token);
-
-      // Redirigir al home después de registrarse
       router.push('/home');
     } catch (error) {
       console.error('Error en el registro', error);
