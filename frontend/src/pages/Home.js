@@ -16,7 +16,6 @@ const Home = () => {
     const storedUsername = localStorage.getItem('username');
 
     if (storedToken) {
-      // Puedes establecer el token y el nombre de usuario en el contexto si lo necesitas
     }
 
     setLoading(false);
@@ -29,7 +28,7 @@ const Home = () => {
   }, [loading, token, router]);
 
   const handleCreateEvent = () => {
-    router.push('/FormularioEvento'); // Cambia esto si el nombre de la página es diferente
+    router.push('/FormularioEvento');
   };
 
   return (

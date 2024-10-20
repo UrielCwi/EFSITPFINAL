@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../app/context/AuthContext';
-import { useRouter } from 'next/router';
+import Navbar from '../app/components/Navbar'; // Importa el componente Navbar
+import Footer from '../app/components/Footer'; // Asegúrate de que la ruta sea correcta
 import styles from '../styles/FormularioEvento.module.css';
 
 const FormularioEvento = () => {
-  const { token, logout } = useAuth();
-  const router = useRouter();
+  const { token } = useAuth();
   const [evento, setEvento] = useState({
     name: '',
     description: '',
@@ -28,38 +28,39 @@ const FormularioEvento = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Verificar que el token no haya expirado
-        if (!token) {
-          router.push('/Login');
-          return;
-        }
-
-        const [catRes, locRes, tagRes] = await Promise.all([
+        const [catRes, locRes, eventsRes] = await Promise.all([
           axios.get('http://localhost:5000/api/event-category/', {
             headers: { Authorization: `Bearer ${token}` },
           }),
           axios.get('http://localhost:5000/api/event-location/', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:5000/api/tag/', {
+          axios.get('http://localhost:5000/api/event/', {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
-        setCategorias(catRes.data);
-        setEventLocations(locRes.data);
-        setTags(tagRes.data);
+
+        setCategorias(catRes.data.collection);
+        setEventLocations(locRes.data.collection);
+
+        const events = eventsRes.data.collection;
+        const extractedTags = events.reduce((acc, evento) => {
+          if (evento.tags && Array.isArray(evento.tags)) {
+            evento.tags.forEach(tag => {
+              acc[tag.name] = tag;
+            });
+          }
+          return acc;
+        }, {});
+
+        setTags(Object.values(extractedTags));
       } catch (error) {
         console.error('Error fetching data:', error);
-        // Si el error indica que el token ha expirado
-        if (error.response && error.response.status === 401) {
-          alert('Su sesión ha expirado. Redirigiendo a la página de login.');
-          logout(); // Limpiar el contexto
-          router.push('/Login');
-        }
       }
     };
+
     fetchData();
-  }, [token, logout, router]);
+  }, [token]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -74,7 +75,7 @@ const FormularioEvento = () => {
     try {
       await axios.post(
         'http://localhost:5000/api/event',
-        { ...evento, id_creator_user: token },
+        { ...evento },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert('Evento creado exitosamente');
@@ -92,17 +93,12 @@ const FormularioEvento = () => {
       });
     } catch (error) {
       alert('Error al crear el evento');
-      // Manejar si el token ha expirado
-      if (error.response && error.response.status === 401) {
-        alert('Su sesión ha expirado. Redirigiendo a la página de login.');
-        logout(); // Limpiar el contexto
-        router.push('/Login');
-      }
     }
   };
 
   return (
     <div className={styles.container}>
+      <Navbar /> {/* Agrega el Navbar aquí */}
       <form className={styles.form} onSubmit={handleSubmit}>
         <h2 className={styles.title}>Crear Evento</h2>
         <input
@@ -189,15 +185,6 @@ const FormularioEvento = () => {
           placeholder="Precio"
           required
         />
-        <label>
-          <input
-            type="checkbox"
-            name="enabled_for_enrollment"
-            checked={evento.enabled_for_enrollment}
-            onChange={handleChange}
-          />
-          Habilitar para Inscripción
-        </label>
         <input
           className={styles.input}
           type="number"
@@ -207,8 +194,18 @@ const FormularioEvento = () => {
           placeholder="Máxima Asistencia"
           required
         />
-        <button className={styles.button} type="submit">Crear Evento</button>
+        <label>
+          <input
+            type="checkbox"
+            name="enabled_for_enrollment"
+            checked={evento.enabled_for_enrollment}
+            onChange={handleChange}
+          />
+          Habilitado para Inscripción
+        </label>
+        <button type="submit" className={styles.button}>Crear Evento</button>
       </form>
+      <Footer/>
     </div>
   );
 };

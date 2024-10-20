@@ -36,6 +36,7 @@ export function AuthMiddleware(req, res, next) {
         console.log(token)
         const decryptToken = DecryptToken(token);
         req.user = decryptToken;
+        console.log(req.user)
     }
     console.log("a")
     next();

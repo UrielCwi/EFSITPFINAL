@@ -96,6 +96,7 @@ router.post('/', AuthMiddleware, async (req, res) => {
         duration_in_minutes, price, enabled_for_enrollment, max_assistance, id_creator_user);
     try {
         const newEvent = await eventService.CrearEvento(evento);
+        console.log(evento)
         if (newEvent === "Nombre menor a 3" || newEvent === "Asistencia maxima mayor a capacidad maxima" || newEvent === "Precio y duracion menores a 0") {
             return res.status(400).json(newEvent);
         }
@@ -147,6 +148,8 @@ router.put('/', AuthMiddleware, async (req, res) => {
 router.post('/:id/enrollment/', AuthMiddleware, async (req, res) => {
     const fecha = new Date();
     let verif = true;
+    console.log(req.user)
+    const id_creator_user = req.user.id;
     const enrollments = await crudRepository.Get("select * from event_enrollments where id_event = $1", [req.params.id]);
     const event = await eventService.getEvento(req.params.id);
     console.log(event)
@@ -154,7 +157,7 @@ router.post('/:id/enrollment/', AuthMiddleware, async (req, res) => {
         const newEventEnrollment = new EventEnrollment(
             null,
             req.params.id,
-            req.user.id,
+            id_creator_user,
             event[0].description,
             fecha,
             false,
@@ -175,7 +178,7 @@ router.post('/:id/enrollment/', AuthMiddleware, async (req, res) => {
             return res.status(400).json({ error: 'El evento no está habilitado para la inscripción' });
         }
         enrollments.forEach(item => {
-            if (item.id_user === req.user.id) {
+            if (item.id_user === id_creator_user) {
                 verif = false;
             }
         });

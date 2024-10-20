@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useContext } from 'react';
-import { UserContext } from '../app/context/AuthContext';
+import { AuthContext } from '../app/context/AuthContext';
 
 const IndexPage = () => {
-  const { token } = useContext(UserContext);
+  const { token } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
