@@ -1,15 +1,16 @@
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { UserContext } from '../app/context/AuthContext';
 
 const IndexPage = () => {
+  const { token } = useContext(UserContext);
   const router = useRouter();
-  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   useEffect(() => {
     if (token) {
-      router.push('/home');
+      router.push('/Home');
     } else {
-      router.push('/login');
+      router.push('/Login');
     }
   }, [token, router]);
 

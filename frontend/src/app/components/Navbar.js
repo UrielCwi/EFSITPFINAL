@@ -1,37 +1,25 @@
-// components/Navbar.js
-import styles from '../../styles/Navbar.module.css'; // Asegúrate de que la ruta sea correcta
+import styles from '../../styles/Navbar.module.css';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext.js';
 
 const Navbar = () => {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-
-  useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    console.log(storedUsername)
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
+  const { username, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    router.push('/login');
+    logout();
+    router.push('/Login');
   };
 
   const handleRedirectToHome = () => {
-    router.push('/home');
+    router.push('/Home');
   };
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>
+      <div className={styles.logo} onClick={handleRedirectToHome} style={{ cursor: 'pointer' }}>
         <img src="/logo.png" alt="Logo" className={styles.logoImage} />
-        <span onClick={handleRedirectToHome} style={{ cursor: 'pointer', color: 'white' }}>
-          Sitio de urias
-        </span>
+        <span style={{ color: 'white' }}>Sitio de urias</span>
       </div>
       <div className={styles.userSection}>
         <span>{username || 'Invitado'}</span>

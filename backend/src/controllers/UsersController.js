@@ -22,7 +22,8 @@ router.post("/login", async (req, res) => {
                 return res.status(200).send({
                     success: true,
                     message: "User Logged",
-                    token: token
+                    token: token,
+                    username: username
                 });   
             } else {
                 return res.status(401).send({

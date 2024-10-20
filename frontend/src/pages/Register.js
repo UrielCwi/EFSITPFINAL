@@ -1,10 +1,13 @@
-import { useState } from 'react';
+// src/app/Register.js
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import styles from '../styles/Register.module.css';
 import Footer from '@/app/components/Footer';
+import { AuthContext } from '@/app/context/AuthContext'; // Cambié a AuthContext
 
 const Register = () => {
+  const { login } = useContext(AuthContext); // Usar el contexto de autenticación
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -21,15 +24,16 @@ const Register = () => {
         password: password,
       });
       const token = response.data.token;
-      localStorage.setItem('token', token);
-      router.push('/home');
+      login(token, username); // Guardar token y username en el contexto
+      router.push('/Home');
     } catch (error) {
       console.error('Error en el registro', error);
+      alert('Error en el registro'); // Agregado para manejar el error visualmente
     }
   };
 
   const handleLoginRedirect = () => {
-    router.push('/login');
+    router.push('/Login');
   };
 
   return (
@@ -42,6 +46,7 @@ const Register = () => {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           className={styles.input}
+          required
         />
         <input
           type="text"
@@ -49,6 +54,7 @@ const Register = () => {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           className={styles.input}
+          required
         />
         <input
           type="text"
@@ -56,6 +62,7 @@ const Register = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className={styles.input}
+          required
         />
         <input
           type="password"
@@ -63,6 +70,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={styles.input}
+          required
         />
         <button type="submit" className={styles.button}>Registrar</button>
       </form>
