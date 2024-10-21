@@ -5,8 +5,9 @@ const client = new pg.Client(BDConfig);
 client.connect();
 
 export default class EventLocationRepository{
-    async getEventLocations(id_user, limit, offset){
-        var query = `SELECT * FROM event_locations WHERE id_creator_user = ${id_user} limit ${limit} offset ${offset}`;
+    async getEventLocations(limit, offset){
+        var query = `SELECT * FROM event_locations limit ${limit} offset ${offset}`;
+        console.log(query)
         const {rows} = await client.query(query)
         return rows
     }

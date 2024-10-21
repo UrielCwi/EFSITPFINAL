@@ -12,8 +12,9 @@ router.get('/', AuthMiddleware, async (req, res) => {
     let { limit, offset } = req.query;
     limit = pagination.parseLimit(limit);
     offset = pagination.parseOffset(offset);
+
     try {
-        const collection = await eventLocationService.getEventLocations(req.user.id, limit, offset);
+        const collection = await eventLocationService.getEventLocations(limit, offset);
         const paginatedResponse = pagination.buildPaginationDto(limit, offset, collection, req.path);
         res.status(200).json({
             collection: paginatedResponse.collection,

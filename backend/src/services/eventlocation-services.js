@@ -1,9 +1,9 @@
 import EventLocationRepository from "../repositories/eventlocation-repository.js";
 const eventLocationRepository = new EventLocationRepository();
 export default class EventLocationService {
-    async getEventLocations(id_user, limit, offset){
+    async getEventLocations(limit, offset){
         try {
-            return await eventLocationRepository.getEventLocations(id_user, limit, offset);
+            return await eventLocationRepository.getEventLocations(limit, offset);
         } catch (error) {
             console.error('Error in GetEventLocations:', error);
             throw error;

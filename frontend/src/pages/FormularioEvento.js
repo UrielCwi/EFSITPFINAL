@@ -30,18 +30,22 @@ const FormularioEvento = () => {
       try {
         const [catRes, locRes, eventsRes] = await Promise.all([
           axios.get('http://localhost:5000/api/event-category/', {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: 
+            { Authorization: `Bearer ${token}` },
           }),
           axios.get('http://localhost:5000/api/event-location/', {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: 
+            { Authorization: `Bearer ${token}` },
           }),
           axios.get('http://localhost:5000/api/event/', {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: 
+            { Authorization: `Bearer ${token}` },
           }),
         ]);
 
         setCategorias(catRes.data.collection);
         setEventLocations(locRes.data.collection);
+ 
 
         const events = eventsRes.data.collection;
         const extractedTags = events.reduce((acc, evento) => {
@@ -95,6 +99,7 @@ const FormularioEvento = () => {
       alert('Error al crear el evento');
     }
   };
+
 
   return (
     <div className={styles.container}>
