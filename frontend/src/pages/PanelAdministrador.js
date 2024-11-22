@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../app/context/AuthContext';
 import CategoryModal from '../app/components/CategoryModal';
 import LocationModal from '../app/components/LocationModal';
+import DetailsModal from '../app/components/DetailsModal';
 import styles from '../styles/AdminPanel.module.css';
 import Navbar from '@/app/components/Navbar';
 
@@ -13,7 +14,6 @@ const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('categories');
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalType, setModalType] = useState(null);
-  console.log(isAdmin)
 
   useEffect(() => {
     if (isAdmin) {
@@ -28,7 +28,6 @@ const AdminPanel = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCategories(response.data.collection);
-      console.log(response.data.collection)
     } catch (error) {
       alert('Error al cargar las categorías');
       console.error(error.response?.data || error.message);
@@ -103,6 +102,12 @@ const AdminPanel = () => {
                   Editar
                 </button>
                 <button
+                  className={styles.detailsButton}
+                  onClick={() => openModal(category, 'event-category')}
+                >
+                  Detalles
+                </button>
+                <button
                   className={styles.deleteButton}
                   onClick={() => handleDelete(category.id, 'categories')}
                 >
@@ -111,12 +116,6 @@ const AdminPanel = () => {
               </div>
             </div>
           ))}
-          <button
-            className={styles.addButton}
-            onClick={() => openModal(null, 'categories')}
-          >
-            Agregar Categoría
-          </button>
         </div>
       ) : (
         <div className={styles.list}>
@@ -131,6 +130,12 @@ const AdminPanel = () => {
                   Editar
                 </button>
                 <button
+                  className={styles.detailsButton}
+                  onClick={() => openModal(location, 'event-location')}
+                >
+                  Detalles
+                </button>
+                <button
                   className={styles.deleteButton}
                   onClick={() => handleDelete(location.id, 'locations')}
                 >
@@ -139,12 +144,6 @@ const AdminPanel = () => {
               </div>
             </div>
           ))}
-          <button
-            className={styles.addButton}
-            onClick={() => openModal(null, 'locations')}
-          >
-            Agregar Ubicación
-          </button>
         </div>
       )}
       {modalType === 'categories' && (
@@ -161,8 +160,15 @@ const AdminPanel = () => {
           fetchLocations={fetchLocations}
         />
       )}
+      {(modalType === 'category-details' || modalType === 'location-details') && (
+        <DetailsModal
+          item={selectedItem}
+          type={modalType}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default AdminPanel;

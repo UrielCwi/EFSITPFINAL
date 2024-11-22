@@ -1,0 +1,65 @@
+/* DetailsModal.module.css */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modalTitle {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .detailsContainer {
+    margin-bottom: 20px;
+  }
+  
+  .detailsContainer p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .detailsContainer strong {
+    font-weight: bold;
+  }
+  
+  .modalButtons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .closeButton {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .closeButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .loading {
+    font-size: 18px;
+    text-align: center;
+  }
+  
