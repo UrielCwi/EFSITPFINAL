@@ -5,7 +5,8 @@ export const createToken = (user) => {
     console.log(user)
     const payload = {
         id: user[0].id,
-        username: user[0].username
+        username: user[0].username,
+        isAdmin: user[0].isAdmin
     };
     const secretKey = process.env.TOKEN_PASSWORD;
     const options = {

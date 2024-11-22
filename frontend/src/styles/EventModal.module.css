@@ -10,6 +10,18 @@
     align-items: center;
     z-index: 1000;
   }
+
+  .Button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0070f3;
+    margin-top: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
   
   .modalContent {
     background-color: #ffffff;

@@ -13,11 +13,8 @@ const Home = () => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
-    const storedUsername = localStorage.getItem('username');
-
     if (storedToken) {
     }
-
     setLoading(false);
   }, []);
 
@@ -30,6 +27,9 @@ const Home = () => {
   const handleCreateEvent = () => {
     router.push('/FormularioEvento');
   };
+  const handlePanelAdmin = () => {
+    router.push('/PanelAdministrador')
+  };
 
   return (
     <div className={styles.container}>
@@ -37,10 +37,17 @@ const Home = () => {
       <h1>Bienvenido a la Home</h1>
       {username && <h2>Hola, {username}!</h2>}
       <EventList />
+      <Footer />
       <button onClick={handleCreateEvent} className={styles.createEventButton}>
         Crear Evento
       </button>
-      <Footer />
+      {username.isAdmin ? (
+        <button onClick={handlePanelAdmin} className={styles.createEventButton}>
+          Panel de Administrador
+        </button> 
+      ):(
+        <p></p>
+      )}
     </div>
   );
 };

@@ -43,7 +43,7 @@ const EventList = () => {
           events.map((event) => (
             <div className={styles.eventCard} key={event.id}>
               <h3>{event.name}</h3>
-              <button onClick={() => handleEventClick(event)}>Detalles</button>
+              <button className={styles.detailButton} onClick={() => handleEventClick(event)}>Detalles</button>
             </div>
           ))
         )}

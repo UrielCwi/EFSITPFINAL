@@ -8,7 +8,7 @@ client.connect();
 export default class UserRepository {
     async LoginUsuario(username, password){
         try{
-            var query = `SELECT id, username FROM Users WHERE username = '${username}' AND password = '${password}'`
+            var query = `SELECT id, username, isAdmin FROM Users WHERE username = '${username}' AND password = '${password}'`
             const {rows} = await client.query(query);
             if(rows != null){
                 const token = createToken(rows);

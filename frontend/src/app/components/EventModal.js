@@ -20,8 +20,8 @@ const EventModal = ({ event, onClose }) => {
         <p>Fecha: {new Date(event.start_date).toLocaleString()}</p>
         <p>Duración: {event.duration_in_minutes} minutos</p>
         <p>Ubicación: {event.event_location.name}</p>
-        <button onClick={handleDetailsClick}>Ver Detalles</button>
-        <button onClick={onClose}>Cerrar</button>
+        <button className={styles.Button} onClick={handleDetailsClick}>Ver Detalles</button>
+        <button className={styles.Button} onClick={onClose}>Cerrar</button>
       </div>
     </div>
   );

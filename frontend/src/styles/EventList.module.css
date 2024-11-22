@@ -7,7 +7,18 @@
     flex-wrap: wrap;
     gap: 20px;
   }
-  
+
+  .detailButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+    
   .eventCard {
     flex: 1 1 calc(33% - 20px);
     background-color: #ffffff;
