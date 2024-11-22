@@ -27,10 +27,8 @@ export default class UserRepository {
         try{
             var query = `INSERT INTO Users (first_name, last_name, username, password, isAdmin) VALUES ('${first_name}', '${last_name}', '${username}', '${password}', 'false') RETURNING id, isAdmin`
             const value = await client.query(query);
-            const insertedId = value.rows[0].id;
             console.log(value)
-            console.log(insertedId)
-            return insertedId;
+            return value;
         } catch (error){
             console.log(error);
         }

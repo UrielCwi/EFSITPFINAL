@@ -1,29 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const LocationModal = ({ category, onClose, fetchCategories }) => {
-  const [name, setName] = useState(category ? category.name : '');
-  const isEditing = !!category;
+const LocationModal = ({ location, onClose, fetchLocations }) => {
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    // Actualiza el estado cuando cambia el objeto `location`
+    if (location) {
+      setName(location.name || '');
+    }
+  }, [location]);
+
+  const isEditing = !!location;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/event-category/${category.id}`, { name });
+        await axios.put(`http://localhost:5000/api/event-location/${location.id}`, { name });
       } else {
-        await axios.post('http://localhost:5000/api/event-category', { name });
+        await axios.post('http://localhost:5000/api/event-location', { name });
       }
-      fetchCategories();
+      fetchLocations();
       onClose();
     } catch (error) {
-      alert('Error al guardar la categoría');
+      alert('Error al guardar la ubicación');
       console.error(error.response?.data || error.message);
     }
   };
 
   return (
     <div>
-      <h2>{isEditing ? 'Editar Categoría' : 'Agregar Categoría'}</h2>
+      <h2>{isEditing ? 'Editar Ubicación' : 'Agregar Ubicación'}</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Nombre:

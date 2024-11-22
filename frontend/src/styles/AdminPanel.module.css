@@ -27,7 +27,8 @@
     margin-bottom: 20px;
   }
   
-  .tabButton {
+  /* Estilo común para todos los botones */
+  .tabButton, .itemButton, .editButton, .deleteButton, .returnButton, .addButton, .detailButton {
     background-color: #0070f3;
     color: white;
     border: none;
@@ -37,7 +38,7 @@
     transition: background-color 0.3s;
   }
   
-  .tabButton:hover {
+  .tabButton:hover, .itemButton:hover, .editButton:hover, .deleteButton:hover, .returnButton:hover, .addButton:hover, .detailButton:hover {
     background-color: #005bb5;
   }
   
@@ -69,20 +70,7 @@
     color: #333;
   }
   
-  .itemButton {
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .itemButton:hover {
-    background-color: #005bb5;
-  }
-  
+  /* Estilo específico para el botón de eliminación */
   .deleteButton {
     background-color: #dc3545;
   }
@@ -91,18 +79,33 @@
     background-color: #a71d2a;
   }
   
+  /* Estilo específico para el botón de adición */
   .addButton {
     background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
     margin-top: 20px;
   }
   
   .addButton:hover {
     background-color: #218838;
+  }
+  
+  /* Estilo específico para el botón de retorno */
+  .returnButton {
+    background-color: #007bff;
+    margin-top: 20px;
+  }
+  
+  .returnButton:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilo específico para el nuevo botón de detalles */
+  .detailButton {
+    background-color: #6c757d;
+    margin-top: 20px;
+  }
+  
+  .detailButton:hover {
+    background-color: #5a6268;
   }
   

@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const CategoryModal = ({ category, onClose, fetchCategories }) => {
-  const [name, setName] = useState(category ? category.name : '');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    // Actualiza el estado cuando cambia el objeto `category`
+    if (category) {
+      setName(category.name || '');
+    }
+  }, [category]);
+
   const isEditing = !!category;
 
   const handleSubmit = async (e) => {

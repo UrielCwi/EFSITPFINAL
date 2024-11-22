@@ -11,15 +11,10 @@ export default class EventLocationRepository{
         const {rows} = await client.query(query)
         return rows
     }
-    async getEventLocationById(id, id_user){
-        var query = `SELECT * FROM event_locations WHERE id = ${id} and id_creator_user = ${id_user}`;
+    async getEventLocationById(id){
+        var query = `SELECT * FROM event_locations WHERE id = ${id}`;
         const values =  await client.query(query);
-        if (values.rowCount >= 1) {
-            return values.rows
-        }
-        else{
-            return values.rowCount
-        }
+        return values.rows
     }
     async crearEventLocation(eventLocation){
         const query = ` INSERT INTO event_locations (id_location, name, full_address, max_capacity, latitude, longitude, id_creator_user) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
@@ -104,12 +99,12 @@ export default class EventLocationRepository{
             throw error;
         }
     }
-    async deleteEventLocation(id, id_creator_user){
+    async deleteEventLocation(id){
         const query = `
         DELETE FROM event_locations
-        WHERE id = $1 AND id_creator_user = $2
+        WHERE id = $1
         `;
-        const values = [id, id_creator_user];
+        const values = [id];
         try {
             const res = await client.query(query, values);
             return res.rowCount;

@@ -10,7 +10,6 @@ const Home = () => {
   const { token, username, isAdmin } = useContext(AuthContext);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  console.log(username)
   console.log(isAdmin)
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Home = () => {
       <button onClick={handleCreateEvent} className={styles.createEventButton}>
         Crear Evento
       </button>
-      {isAdmin ? (
+      {isAdmin === true ? (
         <button onClick={handlePanelAdmin} className={styles.createEventButton}>
           Panel de Administrador
         </button> 

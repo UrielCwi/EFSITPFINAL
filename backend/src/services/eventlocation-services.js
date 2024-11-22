@@ -9,9 +9,9 @@ export default class EventLocationService {
             throw error;
         }
     }
-    async getEventLocationById(id, user_id) {
+    async getEventLocationById(id) {
         try {
-            const eventLocation = await eventLocationRepository.getEventLocationById(id, user_id);
+            const eventLocation = await eventLocationRepository.getEventLocationById(id);
             return eventLocation;
         } catch (error) {
             console.error('Error in getEventLocationById:', error);
@@ -36,9 +36,9 @@ export default class EventLocationService {
             throw error;
         }
     }
-    async deleteEventLocation(id, id_creator_user){
+    async deleteEventLocation(id){
         try {
-            const res = await eventLocationRepository.deleteEventLocation(id, id_creator_user);
+            const res = await eventLocationRepository.deleteEventLocation(id);
             return res;
         } catch (error){
             console.error('Error in DeleteEventLocation:', error);

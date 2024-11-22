@@ -6,6 +6,7 @@ import LocationModal from '../app/components/LocationModal';
 import DetailsModal from '../app/components/DetailsModal';
 import styles from '../styles/AdminPanel.module.css';
 import Navbar from '@/app/components/Navbar';
+import Router from 'next/router';
 
 const AdminPanel = () => {
   const { token, username, isAdmin } = useAuth();
@@ -14,12 +15,15 @@ const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('categories');
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalType, setModalType] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  console.log(isAdmin)
   useEffect(() => {
     if (isAdmin) {
       fetchCategories();
       fetchLocations();
     }
+    setLoading(false);
   }, [token, username]);
 
   const fetchCategories = async () => {
@@ -53,6 +57,7 @@ const AdminPanel = () => {
       });
       alert(`${type === 'categories' ? 'Categoría' : 'Ubicación'} eliminada`);
       type === 'categories' ? fetchCategories() : fetchLocations();
+      window.location.reload()
     } catch (error) {
       alert('Error al eliminar');
       console.error(error.response?.data || error.message);
@@ -69,7 +74,14 @@ const AdminPanel = () => {
     setModalType(null);
   };
 
-  if (!isAdmin) return <p>No tienes permiso para acceder a esta página.</p>;
+  if (isAdmin !== true && loading == false) {
+    return (
+      <div>
+        <p>No tienes permiso para acceder a esta página.</p>
+        <button className={styles.returnButton} onClick={() => Router.back()}>Volver</button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -102,14 +114,14 @@ const AdminPanel = () => {
                   Editar
                 </button>
                 <button
-                  className={styles.detailsButton}
-                  onClick={() => openModal(category, 'event-category')}
+                  className={styles.detailButton}
+                  onClick={() => openModal(category, 'category-details')}
                 >
                   Detalles
                 </button>
                 <button
                   className={styles.deleteButton}
-                  onClick={() => handleDelete(category.id, 'categories')}
+                  onClick={() => handleDelete(category.id, 'event-category')}
                 >
                   Eliminar
                 </button>
@@ -130,14 +142,14 @@ const AdminPanel = () => {
                   Editar
                 </button>
                 <button
-                  className={styles.detailsButton}
-                  onClick={() => openModal(location, 'event-location')}
+                  className={styles.detailButton}
+                  onClick={() => openModal(location, 'location-details')}
                 >
                   Detalles
                 </button>
                 <button
                   className={styles.deleteButton}
-                  onClick={() => handleDelete(location.id, 'locations')}
+                  onClick={() => handleDelete(location.id, 'event-location')}
                 >
                   Eliminar
                 </button>
@@ -163,7 +175,7 @@ const AdminPanel = () => {
       {(modalType === 'category-details' || modalType === 'location-details') && (
         <DetailsModal
           item={selectedItem}
-          type={modalType}
+          apiType={modalType === 'category-details' ? 'event-category' : 'event-location'}
           onClose={closeModal}
         />
       )}

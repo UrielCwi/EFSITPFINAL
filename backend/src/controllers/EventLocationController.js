@@ -32,7 +32,7 @@ router.get('/', AuthMiddleware, async (req, res) => {
 
 router.get('/:id', AuthMiddleware, async (req, res) => {
     try {
-        const event = await eventLocationService.getEventLocationById(req.params.id, req.user.id);
+        const event = await eventLocationService.getEventLocationById(req.params.id);
         if (!event) {
             return res.status(404).json({ error: 'El event_location no existe o no pertenece al usuario autenticado.' });
         }
@@ -99,9 +99,8 @@ router.put('/:id', AuthMiddleware, async (req, res) => {
 
 router.delete('/:id', AuthMiddleware, async (req, res) => {
     const id = req.params.id;
-    const id_creator_user = req.user.id;
     try {
-        const deletedEventLocation = await eventLocationService.deleteEventLocation(id, id_creator_user);
+        const deletedEventLocation = await eventLocationService.deleteEventLocation(id);
         if (!deletedEventLocation) {
             return res.status(404).json({ error: 'El event_location no existe o no pertenece al usuario autenticado.' });
         }
