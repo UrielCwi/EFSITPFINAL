@@ -6,15 +6,19 @@ export const createToken = (user) => {
     const payload = {
         id: user[0].id,
         username: user[0].username,
-        isAdmin: user[0].isAdmin
+        isAdmin: user[0].isadmin
     };
+    console.log(payload)
     const secretKey = process.env.TOKEN_PASSWORD;
     const options = {
         expiresIn : '1h',
         issuer : 'localhost'
     };
-
-    return pkg.sign(payload,secretKey,options);
+    const objeto = {
+        token: pkg.sign(payload,secretKey,options),
+        isAdmin: user[0].isadmin
+    }
+    return objeto;
 }
 
 export const DecryptToken = (encryptedToken) => {

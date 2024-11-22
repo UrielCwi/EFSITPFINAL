@@ -7,7 +7,7 @@ import Footer from '@/app/components/Footer';
 import { AuthContext } from '@/app/context/AuthContext'; // Cambié a AuthContext
 
 const Register = () => {
-  const { login } = useContext(AuthContext); // Usar el contexto de autenticación
+  const { login } = useContext(AuthContext);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -24,11 +24,11 @@ const Register = () => {
         password: password,
       });
       const token = response.data.token;
-      login(token, username); // Guardar token y username en el contexto
+      login(token, username, response.data.isAdmin);
       router.push('/Home');
     } catch (error) {
       console.error('Error en el registro', error);
-      alert('Error en el registro'); // Agregado para manejar el error visualmente
+      alert('Error en el registro');
     }
   };
 

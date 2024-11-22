@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 24px;
+    color: #0070f3;
+    margin: 10px 0;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .tabButton {
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .tabButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .activeTab {
+    background-color: #005bb5;
+  }
+  
+  .list {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .itemText {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .itemButton {
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .itemButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .deleteButton {
+    background-color: #dc3545;
+  }
+  
+  .deleteButton:hover {
+    background-color: #a71d2a;
+  }
+  
+  .addButton {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+  }
+  
+  .addButton:hover {
+    background-color: #218838;
+  }
+  

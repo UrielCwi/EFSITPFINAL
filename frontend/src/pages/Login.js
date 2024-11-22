@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/user/login', { username, password });
-      login(response.data.token, response.data.username);
+      login(response.data.token, response.data.username, response.data.isAdmin);
       router.push('/Home');
     } catch (error) {
       console.error('Error de login:', error);

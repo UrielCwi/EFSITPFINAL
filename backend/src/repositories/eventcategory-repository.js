@@ -8,6 +8,7 @@ export default class EventCategoryRepository{
     async getAllCategories(limit, offset){
         var query = `SELECT * FROM event_categories LIMIT ${limit} OFFSET ${offset}`
         const {rows} = await client.query(query)
+        console.log(rows)
         return rows
     }
     async getCategoriesById(id){

@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
-import CategoryModal from './CategoryModal';
-import LocationModal from './LocationModal';
-import styles from '../../styles/AdminPanel.module.css';
+import { useAuth } from '../app/context/AuthContext';
+import CategoryModal from '../app/components/CategoryModal';
+import LocationModal from '../app/components/LocationModal';
+import styles from '../styles/AdminPanel.module.css';
+import Navbar from '@/app/components/Navbar';
 
 const AdminPanel = () => {
-  const { token, username } = useAuth();
+  const { token, username, isAdmin } = useAuth();
   const [categories, setCategories] = useState([]);
   const [locations, setLocations] = useState([]);
   const [activeTab, setActiveTab] = useState('categories');
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalType, setModalType] = useState(null);
+  console.log(isAdmin)
 
   useEffect(() => {
-    if (token && username === 'admin') {
+    if (isAdmin) {
       fetchCategories();
       fetchLocations();
     }
@@ -22,10 +24,11 @@ const AdminPanel = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/categories', {
+      const response = await axios.get('http://localhost:5000/api/event-category', {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCategories(response.data);
+      setCategories(response.data.collection);
+      console.log(response.data.collection)
     } catch (error) {
       alert('Error al cargar las categorías');
       console.error(error.response?.data || error.message);
@@ -34,10 +37,10 @@ const AdminPanel = () => {
 
   const fetchLocations = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/locations', {
+      const response = await axios.get('http://localhost:5000/api/event-location', {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setLocations(response.data);
+      setLocations(response.data.collection);
     } catch (error) {
       alert('Error al cargar las ubicaciones');
       console.error(error.response?.data || error.message);
@@ -67,20 +70,21 @@ const AdminPanel = () => {
     setModalType(null);
   };
 
-  if (username !== 'admin') return <p>No tienes permiso para acceder a esta página.</p>;
+  if (!isAdmin) return <p>No tienes permiso para acceder a esta página.</p>;
 
   return (
     <div className={styles.container}>
-      <h1>Panel de Administración</h1>
+      <Navbar />
+      <h1 className={styles.title}>Panel de Administración</h1>
       <div className={styles.tabs}>
         <button
-          className={activeTab === 'categories' ? styles.active : ''}
+          className={`${styles.tabButton} ${activeTab === 'categories' ? styles.activeTab : ''}`}
           onClick={() => setActiveTab('categories')}
         >
           Categorías
         </button>
         <button
-          className={activeTab === 'locations' ? styles.active : ''}
+          className={`${styles.tabButton} ${activeTab === 'locations' ? styles.activeTab : ''}`}
           onClick={() => setActiveTab('locations')}
         >
           Ubicaciones
@@ -90,23 +94,57 @@ const AdminPanel = () => {
         <div className={styles.list}>
           {categories.map((category) => (
             <div key={category.id} className={styles.item}>
-              <p>{category.name}</p>
-              <button onClick={() => openModal(category, 'categories')}>Editar</button>
-              <button onClick={() => handleDelete(category.id, 'categories')}>Eliminar</button>
+              <p className={styles.itemText}>{category.name}</p>
+              <div className={styles.buttonGroup}>
+                <button
+                  className={styles.editButton}
+                  onClick={() => openModal(category, 'categories')}
+                >
+                  Editar
+                </button>
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => handleDelete(category.id, 'categories')}
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
           ))}
-          <button onClick={() => openModal(null, 'categories')}>Agregar Categoría</button>
+          <button
+            className={styles.addButton}
+            onClick={() => openModal(null, 'categories')}
+          >
+            Agregar Categoría
+          </button>
         </div>
       ) : (
         <div className={styles.list}>
           {locations.map((location) => (
             <div key={location.id} className={styles.item}>
-              <p>{location.name}</p>
-              <button onClick={() => openModal(location, 'locations')}>Editar</button>
-              <button onClick={() => handleDelete(location.id, 'locations')}>Eliminar</button>
+              <p className={styles.itemText}>{location.name}</p>
+              <div className={styles.buttonGroup}>
+                <button
+                  className={styles.editButton}
+                  onClick={() => openModal(location, 'locations')}
+                >
+                  Editar
+                </button>
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => handleDelete(location.id, 'locations')}
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
           ))}
-          <button onClick={() => openModal(null, 'locations')}>Agregar Ubicación</button>
+          <button
+            className={styles.addButton}
+            onClick={() => openModal(null, 'locations')}
+          >
+            Agregar Ubicación
+          </button>
         </div>
       )}
       {modalType === 'categories' && (
@@ -125,6 +163,6 @@ const AdminPanel = () => {
       )}
     </div>
   );
-};
+}
 
 export default AdminPanel;

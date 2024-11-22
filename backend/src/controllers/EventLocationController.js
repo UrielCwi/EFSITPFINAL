@@ -70,10 +70,10 @@ router.post('/', AuthMiddleware, async (req, res) => {
     }
 });
 
-router.put('/', AuthMiddleware, async (req, res) => {
-    const { id, id_location, name, full_address, max_capacity, latitude, longitude } = req.body;
+router.put('/:id', AuthMiddleware, async (req, res) => {
+    const { id_location, name, full_address, max_capacity, latitude, longitude } = req.body;
     const newEventLocation = new EventLocation(
-        id,
+        req.params.id,
         id_location,
         name,
         full_address,

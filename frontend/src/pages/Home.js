@@ -7,12 +7,15 @@ import EventList from '@/app/components/EventList';
 import { AuthContext } from '@/app/context/AuthContext';
 
 const Home = () => {
-  const { token, username } = useContext(AuthContext);
+  const { token, username, isAdmin } = useContext(AuthContext);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  console.log(username)
+  console.log(isAdmin)
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
+    console.log(storedToken)
     if (storedToken) {
     }
     setLoading(false);
@@ -41,7 +44,7 @@ const Home = () => {
       <button onClick={handleCreateEvent} className={styles.createEventButton}>
         Crear Evento
       </button>
-      {username.isAdmin ? (
+      {isAdmin ? (
         <button onClick={handlePanelAdmin} className={styles.createEventButton}>
           Panel de Administrador
         </button> 

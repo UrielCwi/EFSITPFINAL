@@ -22,8 +22,9 @@ router.post("/login", async (req, res) => {
                 return res.status(200).send({
                     success: true,
                     message: "User Logged",
-                    token: token,
-                    username: username
+                    token: token.token,
+                    username: username,
+                    isAdmin: token.isAdmin
                 });   
             } else {
                 return res.status(401).send({
@@ -44,19 +45,22 @@ router.post("/register", async (req, res) => {
     const { first_name, last_name, username, password } = req.body;
     const checkIn = verificadorDeRegistro(first_name, last_name, username, password);
     if(checkIn === true){
-        const id = await userService.crearUsuario(first_name, last_name, username, password)
+        const objeto = await userService.crearUsuario(first_name, last_name, username, password)
+        console.log(objeto)
         const user = [{
-            id: id,
-            username: first_name
+            id: objeto.id,
+            username: first_name,
+            isAdmin: objeto.isAdmin
         }];
         const token = createToken(user)
         return res.status(201).send({
-            id: id,
+            id: objeto.id,
             first_name: first_name,
             last_name: last_name,
             username: username,
+            isAdmin: objeto.isAdmin,
             token: token,
-            message: 'User registered successfully',
+            message: 'User registered successfully'
         });
     } else {
         return res.status(400).send({
