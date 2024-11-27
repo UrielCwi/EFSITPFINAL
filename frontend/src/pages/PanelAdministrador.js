@@ -16,7 +16,6 @@ const AdminPanel = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [statusAdmin, setStatus] = useState(false)
 
 
   console.log(isAdmin)
@@ -27,14 +26,6 @@ const AdminPanel = () => {
     }
     setLoading(false);
   }, [token, username]);
-
-  useEffect(() => {
-    if(isAdmin === null){
-      setStatus(false)
-    } else if(isAdmin !== null) {
-      setStatus(true)
-    }
-  }, [isAdmin]);
 
   const fetchCategories = async () => {
     try {
@@ -84,112 +75,112 @@ const AdminPanel = () => {
     setModalType(null);
   };
 
-  if (isAdmin === true && statusAdmin === true) {
+  if (isAdmin !== true && isAdmin !== "true") {
     return (
-        <div className={styles.container}>
-          <Navbar />
-          <h1 className={styles.title}>Panel de Administración</h1>
-          <div className={styles.tabs}>
-            <button
-              className={`${styles.tabButton} ${activeTab === 'categories' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('categories')}
-            >
-              Categorías
-            </button>
-            <button
-              className={`${styles.tabButton} ${activeTab === 'locations' ? styles.activeTab : ''}`}
-              onClick={() => setActiveTab('locations')}
-            >
-              Ubicaciones
-            </button>
+      <div>
+        <p>No tienes permiso para acceder a esta página.</p>
+        <button className={styles.returnButton} onClick={() => Router.back()}>Volver</button>
+      </div>
+    );
+  } else if (isAdmin === true || isAdmin === "true"){
+    return (
+      <div className={styles.container}>
+        <Navbar />
+        <h1 className={styles.title}>Panel de Administración</h1>
+        <div className={styles.tabs}>
+          <button
+            className={`${styles.tabButton} ${activeTab === 'categories' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('categories')}
+          >
+            Categorías
+          </button>
+          <button
+            className={`${styles.tabButton} ${activeTab === 'locations' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('locations')}
+          >
+            Ubicaciones
+          </button>
+        </div>
+        {activeTab === 'categories' ? (
+          <div className={styles.list}>
+            {categories.map((category) => (
+              <div key={category.id} className={styles.item}>
+                <p className={styles.itemText}>{category.name}</p>
+                <div className={styles.buttonGroup}>
+                  <button
+                    className={styles.editButton}
+                    onClick={() => openModal(category, 'categories')}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className={styles.detailButton}
+                    onClick={() => openModal(category, 'category-details')}
+                  >
+                    Detalles
+                  </button>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => handleDelete(category.id, 'event-category')}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-          {activeTab === 'categories' ? (
-            <div className={styles.list}>
-              {categories.map((category) => (
-                <div key={category.id} className={styles.item}>
-                  <p className={styles.itemText}>{category.name}</p>
-                  <div className={styles.buttonGroup}>
-                    <button
-                      className={styles.editButton}
-                      onClick={() => openModal(category, 'categories')}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      className={styles.detailButton}
-                      onClick={() => openModal(category, 'category-details')}
-                    >
-                      Detalles
-                    </button>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => handleDelete(category.id, 'event-category')}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
+        ) : (
+          <div className={styles.list}>
+            {locations.map((location) => (
+              <div key={location.id} className={styles.item}>
+                <p className={styles.itemText}>{location.name}</p>
+                <div className={styles.buttonGroup}>
+                  <button
+                    className={styles.editButton}
+                    onClick={() => openModal(location, 'locations')}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className={styles.detailButton}
+                    onClick={() => openModal(location, 'location-details')}
+                  >
+                    Detalles
+                  </button>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => handleDelete(location.id, 'event-location')}
+                  >
+                    Eliminar
+                  </button>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className={styles.list}>
-              {locations.map((location) => (
-                <div key={location.id} className={styles.item}>
-                  <p className={styles.itemText}>{location.name}</p>
-                  <div className={styles.buttonGroup}>
-                    <button
-                      className={styles.editButton}
-                      onClick={() => openModal(location, 'locations')}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      className={styles.detailButton}
-                      onClick={() => openModal(location, 'location-details')}
-                    >
-                      Detalles
-                    </button>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => handleDelete(location.id, 'event-location')}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-          {modalType === 'categories' && (
-            <CategoryModal
-              category={selectedItem}
-              onClose={closeModal}
-              fetchCategories={fetchCategories}
-            />
-          )}
-          {modalType === 'locations' && (
-            <LocationModal
-              location={selectedItem}
-              onClose={closeModal}
-              fetchLocations={fetchLocations}
-            />
-          )}
-          {(modalType === 'category-details' || modalType === 'location-details') && (
-            <DetailsModal
-              item={selectedItem}
-              apiType={modalType === 'category-details' ? 'event-category' : 'event-location'}
-              onClose={closeModal}
-            />
-          )}
-        </div>
-      );
-  } else {
-    return (
-        <div>
-          <p>No tienes permiso para acceder a esta página.</p>
-          <button className={styles.returnButton} onClick={() => Router.back()}>Volver</button>
-        </div>
-      );
+              </div>
+            ))}
+          </div>
+        )}
+        {modalType === 'categories' && (
+          <CategoryModal
+            category={selectedItem}
+            onClose={closeModal}
+            fetchCategories={fetchCategories}
+          />
+        )}
+        {modalType === 'locations' && (
+          <LocationModal
+            location={selectedItem}
+            onClose={closeModal}
+            fetchLocations={fetchLocations}
+          />
+        )}
+        {(modalType === 'category-details' || modalType === 'location-details') && (
+          <DetailsModal
+            item={selectedItem}
+            apiType={modalType === 'category-details' ? 'event-category' : 'event-location'}
+            onClose={closeModal}
+          />
+        )}
+      </div>
+    );
   }
 };
 

@@ -10,8 +10,6 @@ const Home = () => {
   const { token, username, isAdmin } = useContext(AuthContext);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [statusAdmin, setStatus] = useState(false)
-  console.log(isAdmin)
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -26,14 +24,6 @@ const Home = () => {
       router.push('/Login');
     }
   }, [loading, token, router]);
-
-  useEffect(() => {
-    if(isAdmin === null){
-      setStatus(false)
-    } else if(isAdmin !== null) {
-      setStatus(true)
-    }
-  }, [isAdmin]);
 
   const handleCreateEvent = () => {
     router.push('/FormularioEvento');
@@ -52,10 +42,10 @@ const Home = () => {
       <button onClick={handleCreateEvent} className={styles.createEventButton}>
         Crear Evento
       </button>
-      {(isAdmin !== true && statusAdmin === true) ? (
+      {(isAdmin !== true && isAdmin !== "true") ? (
         <p></p>
       ) : (
-        isAdmin === true && (
+        (isAdmin === true || isAdmin === "true") && (
           <button onClick={handlePanelAdmin} className={styles.createEventButton}>
             Panel de Administrador
           </button>
