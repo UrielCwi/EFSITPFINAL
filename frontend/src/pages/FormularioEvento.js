@@ -202,6 +202,7 @@ const FormularioEvento = () => {
         <label>
           <input
             type="checkbox"
+            className={styles.input2}
             name="enabled_for_enrollment"
             checked={evento.enabled_for_enrollment}
             onChange={handleChange}
